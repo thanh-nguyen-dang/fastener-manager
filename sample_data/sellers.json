@@ -1,0 +1,34 @@
+[
+  {
+    "name": "Acme Corp",
+    "contact_email": "contact@acme.com",
+    "phone_number": "+123456789",
+    "address": "123 Acme Street, Acme City, AC",
+    "csv_mapping": {
+        "product_id": "product_id",
+        "description": "description",
+        "thread_size": "thread_size",
+        "material": "material",
+        "finish": "finish",
+        "category": "category",
+        "price": "price",
+        "quantity": "quantity"
+    }
+  },
+  {
+    "name": "Bosch Corp",
+    "contact_email": "contact@bosch.com",
+    "phone_number": "+123456789",
+    "address": "246 Bosch Street, Berlin City, Germany",
+    "csv_mapping": {
+        "item_number": "product_id",
+        "product_name": "description",
+        "threading": "thread_size",
+        "composition": "material",
+        "surface_treatment": "finish",
+        "product_category": "category",
+        "unit_cost": "price",
+        "stock": "quantity"
+    }
+  }
+]

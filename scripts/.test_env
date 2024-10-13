@@ -1,0 +1,13 @@
+SECRET_KEY=test-secret-key
+DEBUG=False
+ALLOWED_HOSTS=localhost,127.0.0.1
+DB_NAME=ingest_db
+TEST_DB_NAME=ingest_db_test
+DB_USER=postgres
+DB_PASSWORD=postgres
+DB_HOST=localhost
+DB_PORT=6543
+DB_SCHEMA=fastener_manager
+TEST_DB_SCHEMA=fastener_manager
+REDIS_HOST=localhost
+REDIS_PORT=6379
