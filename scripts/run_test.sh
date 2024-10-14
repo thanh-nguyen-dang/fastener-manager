@@ -54,7 +54,7 @@ python "$ROOT_DIR/manage.py" migrate --settings="$DJANGO_SETTINGS_MODULE"
 
 # Run tests with --keepdb to prevent Django from trying to drop the test database
 echo "Running tests..."
-python -m pytest --cov="$APP_NAME" --cov-report=term-missing "$ROOT_DIR"
+python -m pytest --cov="$APP_NAME" --cov-report=term-missing -s "$ROOT_DIR"
 
 
 # Bring down Docker Compose after tests

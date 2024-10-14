@@ -31,6 +31,8 @@ class FastenerIngestView(APIView):
 
         # Build defaults dictionary using dictionary comprehension
         defaults = {field: standardized_data[field] for field in fastener_fields if field in standardized_data}
+        all_fasteners = Fastener.objects.all()
+        print(all_fasteners)
 
         # Create or update Fastener
         fastener, created = Fastener.objects.get_or_create(
