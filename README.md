@@ -1,5 +1,6 @@
 # Fastener Management System
-
+![Test Status](https://github.com/thanh-nguyen-dang/fastener-manager/actions/workflows/ci.yml/badge.svg)
+[![Test Coverage](https://codecov.io/github/thanh-nguyen-dang/fastener-manager/graph/badge.svg?token=8Q79XNK5YD)](https://codecov.io/github/thanh-nguyen-dang/fastener-manager)
 ## Introduction
 
 The **Fastener Management System** is a Django-based web application that allows users to manage sellers and fasteners. Sellers can upload fastener data using CSV files, and the application processes and stores this data efficiently. The system supports both `metric` and `imperial` thread sizes, converting between units and standardizing the data.
