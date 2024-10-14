@@ -5,6 +5,7 @@ from fastener_app.models import (
     Category,
     constants
 )
+from fastener_app.tests.test_views.test_view_ingest import logger
 from fastener_app.unit_converter import get_all_info_from_thread_size_str
 
 
@@ -61,6 +62,8 @@ def standardize_material(raw_data, standardized_data):
     if 'material' in raw_data:
         material_name = raw_data['material'].strip().title()
         material, _ = Material.objects.get_or_create(name=material_name)
+        logger.debug(material_name)
+        logger.debug(material)
         standardized_data['material'] = material
 
 def standardize_finish(raw_data, standardized_data):

@@ -67,6 +67,28 @@ def test_successful_csv_ingestion(api_client, seller, valid_csv_file):
     assert seller_fastener_2.quantity == 300
 
 
+@pytest.mark.django_db
+def test_update_existing_fastener(api_client, seller, fastener):
+    url = reverse('fastener-ingest', args=[seller.id])
+    csv_content = (
+        "field_1,field_2,field_3,field_4,field_5,field_6,field_7,field_8\n"
+        f"{fastener.product_id},M12/1.75 X 220 HCS DIN 931 10.9 PLN,M12-1.75,Stainless Steel,Zinc,Hex Cap Screw,20.99,300\n"
+    ).encode('utf-8')
+    print(fastener)
+    csv_file = SimpleUploadedFile('fasteners.csv', csv_content, 'text/csv')
+
+    response = api_client.post(url, {'file': csv_file}, format='multipart')
+
+    assert response.status_code == status.HTTP_201_CREATED
+    fastener.refresh_from_db()
+    assert fastener.material.name == "Stainless Steel"  # Updated
+    assert fastener.finish.name == "Zinc"  # Updated
+
+    seller_fastener = SellerFastener.objects.get(seller=seller, fastener=fastener)
+    assert str(seller_fastener.price) == str(20.99)
+    assert seller_fastener.quantity == 300
+
+
 # Test case for missing file in request
 @pytest.mark.django_db
 def test_missing_file_in_request(api_client, seller):
