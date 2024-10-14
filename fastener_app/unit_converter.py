@@ -16,31 +16,33 @@ def mm_to_inch(mm):
     Convert millimeters to inches.
     1 millimeter = 0.0393701 inches
     """
-    return round(mm / constants.INCH_TO_MM, 3)
+    return round_to_nearest_quarter(round(mm / constants.INCH_TO_MM, 3))
+
+
+def round_to_nearest_quarter(decimal_value):
+    return round(decimal_value * 4) / 4
 
 
 def decimal_to_fraction_with_quarter_steps(decimal_value):
     """
     Convert a decimal number to the nearest fraction with 1/4 steps.
-    Example: 0.34 -> 1/4, 0.68 -> 3/4, 1.12 -> 1 1/4
+    Example: 0.34 -> 1/4, 0.68 -> 3/4, 1.14 -> 1 1/4
     """
-    # Step 1: Round the decimal to the nearest 0.25
-    rounded_value = round(decimal_value * 4) / 4
+    rounded_value = round_to_nearest_quarter(decimal_value)
 
-    # Step 2: Convert the rounded value to a fraction with denominator 4
+    # Step 2: Convert the rounded value to a fraction
     fraction = Fraction(rounded_value).limit_denominator(4)
 
-    # Step 3: If the fraction is improper (e.g., 5/4), convert to a mixed fraction
-    whole_number = fraction.numerator // fraction.denominator
-    remainder = fraction.numerator % fraction.denominator
+    # Step 3: Get the whole number and the remainder
+    whole_number = int(fraction)  # Get the whole number part
+    remainder = fraction - whole_number  # Get the fractional part
 
-    # If there's a whole number part, represent it as a mixed number
-    if whole_number != 0 and remainder != 0:
-        return f"{whole_number} {remainder}/{fraction.denominator}"
-    elif whole_number != 0:
-        return f"{whole_number}"
-    else:
-        return f"{remainder}/{fraction.denominator}"
+    # Step 4: If there's a fractional part, return the mixed fraction
+    if remainder.numerator != 0:
+        if whole_number > 0:
+            return f"{whole_number} {remainder.numerator}/{remainder.denominator}"
+        return f"{remainder.numerator}/{remainder.denominator}"
+    return f"{whole_number}"
 
 
 def return_all_from_imperial(match):
@@ -112,5 +114,5 @@ def imperial_to_metric_name(imperial_size_str):
     match = re.match(constants.IMPERIAL_REG, imperial_size_str)
     if not match:
         return None
-    other_values = return_all_from_metric(match)
+    other_values = return_all_from_imperial(match)
     return other_values.get("metric_size_str")
