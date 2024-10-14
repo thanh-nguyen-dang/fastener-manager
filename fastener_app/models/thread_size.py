@@ -40,14 +40,14 @@ class ThreadSize(models.Model):
             )
 
         # Ensure that metric_size_num and imperial_size_num are positive numbers if they are provided
-        if self.metric_size_num is not None and self.metric_size_num <= 0:
+        if self.metric_size_num and self.metric_size_num <= 0:
             raise ValidationError(f"Metric size must be a positive number. But receive {self.metric_size_num}.")
 
-        if self.imperial_size_num is not None and self.imperial_size_num <= 0:
+        if self.imperial_size_num and self.imperial_size_num <= 0:
             raise ValidationError(f"Imperial size must be a positive number. But receive {self.imperial_size_num}.")
 
         # Ensure that thread_per_unit is a positive number (either TPM or TPI)
-        if self.thread_per_unit <= 0:
+        if not self.thread_per_unit or self.thread_per_unit <= 0:
             raise ValidationError(
                 f"Thread per unit (TPM or TPI) must be a positive number. Received {self.thread_per_unit}"
             )
